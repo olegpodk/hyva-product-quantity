@@ -2,47 +2,59 @@
 
 declare(strict_types=1);
 
-/** @var Escaper $escaper */
-
 use Magento\Framework\Escaper;
+use Hyva\Theme\ViewModel\ProductPage;
+
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
 
 ?>
-<div id="real-qty-block">
+<?php
+$productViewModel = $viewModels->require(ProductPage::class);
+$product = $productViewModel->getProduct();
+?>
+
+<div id="real-qty-block" data-product-sku="<?= $escaper->escapeHtml($product->getSku())?>">
     <span class="real-qty">
         <?= $escaper->escapeHtml(__('Available Qty'))?>:
         <span id="real-qty-value"></span>
     </span>
 </div>
 
-<script type="text/x-magento-init">
-    {
-        "#real-qty-block": {
-            "productQtyAjax": {}
-        }
-    }
-</script>
-
 <script>
     "use strict";
-
-    function initGTM(event) {
+    function initProductQtyUpdating(event) {
         const sectionData = event.detail.data;
         console.log(sectionData);
-        if (sectionData.customer && sectionData.customer.firstname) {
-            console.log('Welcome, ' + sectionData.customer.firstname);
-        }
+        const sku = document.querySelector('#real-qty-block').getAttribute('data-product-sku');
+        const formKey = hyva.getFormKey();
 
+        fetch(`${BASE_URL}product/qty/update/`, {
+            method: 'post',
+            body: new URLSearchParams(
+                {
+                    sku: sku,
+                    form_key: formKey
+                }
+            ),
+            headers: {
+                'contentType': 'application/json',
+                'accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (! response.ok) console.warn('GET request failed');
+            return response.json()
+        })
+        .then(data => {
+            if (data.error == false) {
+                let qty = data.product_qty;
+                document.querySelector('#real-qty-value').innerText = qty;
+            } else {
+                console.log('Error: ' + data.message);
+            }
+        });
     }
 
-    window.addEventListener("private-content-loaded", initGTM);
-
+    window.addEventListener("private-content-loaded", initProductQtyUpdating);
 </script>
-
-<script type="text/javascript">
-    // setInterval(function(){
-    //     window.dispatchEvent(new CustomEvent("reload-customer-section-data"));
-    // }, 2000);
-
-
-</script>
-
