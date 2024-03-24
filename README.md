@@ -4,7 +4,6 @@
 
 ## biotec/magento2-product-quantity
 
-![Supported Magento Versions][ico-compatibility]
 
 This module updates product quantity on product page
 
