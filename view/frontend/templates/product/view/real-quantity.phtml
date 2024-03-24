@@ -14,7 +14,7 @@ $productViewModel = $viewModels->require(ProductPage::class);
 $product = $productViewModel->getProduct();
 ?>
 
-<div id="real-qty-block" data-product-sku="<?= $escaper->escapeHtml($product->getSku())?>">
+<div id="real-qty-block" data-product-sku="<?= $escaper->escapeHtml($product->getSku())?>" class="hidden">
     <span class="real-qty">
         <?= $escaper->escapeHtml(__('Available Qty'))?>:
         <span id="real-qty-value"></span>
@@ -25,7 +25,6 @@ $product = $productViewModel->getProduct();
     "use strict";
     function initProductQtyUpdating(event) {
         const sectionData = event.detail.data;
-        console.log(sectionData);
         const sku = document.querySelector('#real-qty-block').getAttribute('data-product-sku');
         const formKey = hyva.getFormKey();
 
@@ -50,6 +49,7 @@ $product = $productViewModel->getProduct();
             if (data.error == false) {
                 let qty = data.product_qty;
                 document.querySelector('#real-qty-value').innerText = qty;
+                document.querySelector('#real-qty-block').style.display = 'block';
             } else {
                 console.log('Error: ' + data.message);
             }
