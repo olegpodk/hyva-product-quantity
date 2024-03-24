@@ -2,6 +2,7 @@
     "name": "biotec/module-product-quantity",
     "description": "Module provides product quantity on product page in real time",
     "type": "magento2-module",
+    "version": "0.1.0",
     "require": {
         "magento/framework": "*",
         "magento/module-catalog": ">=103.0.0",
