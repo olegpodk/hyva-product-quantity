@@ -2,17 +2,17 @@
     "name": "biotec/module-product-quantity",
     "description": "Module provides product quantity on product page in real time",
     "type": "magento2-module",
-    "license": "GPL-3.0",
-    "minimum-stability": "dev",
     "require": {
         "magento/framework": "*",
         "magento/module-catalog": ">=103.0.0",
-        "magento/module-theme": ">=101.0.0",
         "hyva-themes/magento2-theme-module": ">=1.3.5"
     },
     "autoload": {
         "files": [
             "registration.php"
-        ]
+        ],
+        "psr-4": {
+            "Biotec\\ProductQuantity\\": ""
+        }
     }
 }

@@ -1,3 +1,48 @@
-<div>
-    7777777777
+<?php
+
+declare(strict_types=1);
+
+/** @var Escaper $escaper */
+
+use Magento\Framework\Escaper;
+
+?>
+<div id="real-qty-block">
+    <span class="real-qty">
+        <?= $escaper->escapeHtml(__('Available Qty'))?>:
+        <span id="real-qty-value"></span>
+    </span>
 </div>
+
+<script type="text/x-magento-init">
+    {
+        "#real-qty-block": {
+            "productQtyAjax": {}
+        }
+    }
+</script>
+
+<script>
+    "use strict";
+
+    function initGTM(event) {
+        const sectionData = event.detail.data;
+        console.log(sectionData);
+        if (sectionData.customer && sectionData.customer.firstname) {
+            console.log('Welcome, ' + sectionData.customer.firstname);
+        }
+
+    }
+
+    window.addEventListener("private-content-loaded", initGTM);
+
+</script>
+
+<script type="text/javascript">
+    // setInterval(function(){
+    //     window.dispatchEvent(new CustomEvent("reload-customer-section-data"));
+    // }, 2000);
+
+
+</script>
+
