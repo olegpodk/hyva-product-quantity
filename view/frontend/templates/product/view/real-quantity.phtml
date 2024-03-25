@@ -28,32 +28,34 @@ $product = $productViewModel->getProduct();
         const sku = document.querySelector('#real-qty-block').getAttribute('data-product-sku');
         const formKey = hyva.getFormKey();
 
-        fetch(`${BASE_URL}product/qty/update/`, {
-            method: 'post',
-            body: new URLSearchParams(
-                {
-                    sku: sku,
-                    form_key: formKey
+        setInterval(function(){
+            fetch(`${BASE_URL}product/qty/update/`, {
+                method: 'post',
+                body: new URLSearchParams(
+                    {
+                        sku: sku,
+                        form_key: formKey
+                    }
+                ),
+                headers: {
+                    'contentType': 'application/json',
+                    'accept': 'application/json'
                 }
-            ),
-            headers: {
-                'contentType': 'application/json',
-                'accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (! response.ok) console.warn('GET request failed');
-            return response.json()
-        })
-        .then(data => {
-            if (data.error == false) {
-                let qty = data.product_qty;
-                document.querySelector('#real-qty-value').innerText = qty;
-                document.querySelector('#real-qty-block').style.display = 'block';
-            } else {
-                console.log('Error: ' + data.message);
-            }
-        });
+            })
+                .then(response => {
+                    if (! response.ok) console.warn('GET request failed');
+                    return response.json()
+                })
+                .then(data => {
+                    if (data.error == false) {
+                        let qty = data.product_qty;
+                        document.querySelector('#real-qty-value').innerText = qty;
+                        document.querySelector('#real-qty-block').style.display = 'block';
+                    } else {
+                        console.log('Error: ' + data.message);
+                    }
+                });
+        }, 5000);
     }
 
     window.addEventListener("private-content-loaded", initProductQtyUpdating);
