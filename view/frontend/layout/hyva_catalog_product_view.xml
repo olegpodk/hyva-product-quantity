@@ -4,7 +4,7 @@
     <body>
         <referenceBlock name="product.info" template="Biotec_ProductQuantity::product/view/product-info.phtml" >
             <block name="product.info.real.quantity" template="Biotec_ProductQuantity::product/view/real-quantity.phtml"
-                   after="product.info.stockstatus"/>
+                   after="product.info.stockstatus" ttl="30"/>
         </referenceBlock>
     </body>
 </page>
