@@ -3,15 +3,17 @@
 declare(strict_types=1);
 
 use Magento\Framework\Escaper;
-use Hyva\Theme\ViewModel\ProductPage;
+use Magento\Framework\View\Element\Template;
+use Hyva\Theme\ViewModel\CurrentProduct;
 
 /** @var Escaper $escaper */
+/** @var Template $block */
 /** @var ViewModelRegistry $viewModels */
 
 ?>
 <?php
-$productViewModel = $viewModels->require(ProductPage::class);
-$product = $productViewModel->getProduct();
+$currentProductModel = $viewModels->require(CurrentProduct::class, $block);
+$product = $currentProductModel->get();
 ?>
 
 <div id="real-qty-block" data-product-sku="<?= $escaper->escapeHtml($product->getSku())?>" class="hidden">
