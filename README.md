@@ -4,7 +4,6 @@
 
 ## biotec/magento2-product-quantity
 
-
 This module updates product quantity on product page
 
 Compatible with Magento 2.4.0 and higher.
@@ -24,3 +23,8 @@ Compatible with Magento 2.4.0 and higher.
 ## Configuration
 
 No configuration needed.
+
+## Expected result
+Available quantity should appear and updated automatically without page reloading
+
+![screenshot](docs/screen1.png)
