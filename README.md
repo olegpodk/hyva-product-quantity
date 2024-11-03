@@ -13,7 +13,7 @@ Compatible with Magento 2.4.0 and higher.
 1. Install With Gitlab access:
    ```
    composer config repositories.biotec/magento2-product-quantity git git@github.com:olegpodk/hyva-product-quantity.git
-   composer require hyva-themes/magento2-quick-order
+   composer require biotec/module-product-quantity
    ```
 
 2. Enable module
